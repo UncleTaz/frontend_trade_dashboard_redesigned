@@ -52,10 +52,10 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
           </Box>
           <Box sx={{ flex: 1.5 }}>{formatTimestamp(trade.entryTime)}</Box>
           <Box sx={{ flex: 1.5 }}>{formatTimestamp(trade.exitTime)}</Box>
-          <Box sx={{ flex: 1, textAlign: 'right' }}>${trade.entryPrice.toFixed(2)}</Box>
-          <Box sx={{ flex: 1, textAlign: 'right' }}>${trade.exitPrice.toFixed(2)}</Box>
-          <Box sx={{ flex: 0.7, textAlign: 'right' }}>{trade.quantity}</Box>
-          <Box sx={{ flex: 1, textAlign: 'right', pr: 2 }}>
+          <Box sx={{ flex: 1 }}>${trade.entryPrice.toFixed(2)}</Box>
+          <Box sx={{ flex: 1 }}>${trade.exitPrice.toFixed(2)}</Box>
+          <Box sx={{ flex: 0.7 }}>{trade.quantity}</Box>
+          <Box sx={{ flex: 1, pr: 2 }}>
             <Typography
               sx={{
                 color: trade.profitLoss >= 0 ? 'success.main' : 'error.main',
