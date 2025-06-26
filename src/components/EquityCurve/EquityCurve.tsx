@@ -105,7 +105,7 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
   const formatTooltipValue = (value: number) =>
     `$${Math.round(value)}`;
 
-  // ✅ Safe tick interval setup
+  // ✅ Intelligent tick interval setup
   let tickInterval: number | undefined = undefined;
   let tradeTicks: number[] | undefined = undefined;
 
@@ -114,6 +114,17 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
     tradeTicks = data
       .filter((_, i) => i % tickInterval! === 0)
       .map((d) => d.tradeIndex);
+  } else {
+    // For daily view, calculate intelligent date intervals
+    const dataLength = data.length;
+    if (dataLength > 0) {
+      // Aim for 6-8 ticks for optimal readability
+      const targetTicks = Math.min(8, Math.max(4, dataLength));
+      tickInterval = Math.ceil(dataLength / targetTicks);
+      tradeTicks = data
+        .filter((_, i) => i % tickInterval! === 0)
+        .map((d) => d.timestamp);
+    }
   }
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -161,7 +172,7 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={data}
-          margin={{ top: 5, right: 30, left: 60, bottom: 5 }}
+          margin={{ top: 5, right: 30, left: 90, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -170,7 +181,6 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
             tickFormatter={formatXAxis}
             domain={['dataMin', 'dataMax']}
             ticks={tradeTicks}
-            tickCount={viewMode === 'daily' ? 10 : undefined}
           />
           <YAxis 
             tickFormatter={formatTooltipValue}
