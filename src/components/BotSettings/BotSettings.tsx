@@ -8,6 +8,7 @@ import {
   SelectChangeEvent,
   Grid,
   TextField,
+  Button,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -19,6 +20,7 @@ interface BotSettingsProps {
   onBotChange: (bot: string) => void;
   dateRange: [Date | null, Date | null];
   onDateRangeChange: (range: [Date | null, Date | null]) => void;
+  onClearFilters: () => void;
 }
 
 export const BotSettings = ({
@@ -26,6 +28,7 @@ export const BotSettings = ({
   onBotChange,
   dateRange,
   onDateRangeChange,
+  onClearFilters,
 }: BotSettingsProps) => {
   const { botLabels } = useBotLabels();
 
@@ -46,7 +49,7 @@ export const BotSettings = ({
   return (
     <Box>
       <Grid container spacing={2} alignItems="center">
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <FormControl fullWidth>
             <InputLabel id="bot-select-label">Trading Bot</InputLabel>
             <Select
@@ -65,7 +68,7 @@ export const BotSettings = ({
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="Start Date"
@@ -75,7 +78,7 @@ export const BotSettings = ({
             />
           </LocalizationProvider>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="End Date"
@@ -84,6 +87,16 @@ export const BotSettings = ({
               renderInput={(params) => <TextField {...params} fullWidth />}
             />
           </LocalizationProvider>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Button
+            variant="outlined"
+            onClick={onClearFilters}
+            fullWidth
+            sx={{ height: '56px' }}
+          >
+            Clear Filters
+          </Button>
         </Grid>
       </Grid>
     </Box>

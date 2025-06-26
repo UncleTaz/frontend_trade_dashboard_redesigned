@@ -30,6 +30,11 @@ export const Dashboard = () => {
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [isAboutVisible, setIsAboutVisible] = useState(false);
 
+  const handleClearFilters = () => {
+    setSelectedBot('');
+    setDateRange([null, null]);
+  };
+
   const filters: TradeFilters = {
     botLabel: selectedBot || undefined,
     startDate: dateRange[0] || undefined,
@@ -92,6 +97,7 @@ export const Dashboard = () => {
                 onBotChange={setSelectedBot}
                 dateRange={dateRange}
                 onDateRangeChange={setDateRange}
+                onClearFilters={handleClearFilters}
               />
             </Paper>
           </Grid>

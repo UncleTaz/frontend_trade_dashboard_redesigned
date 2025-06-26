@@ -189,7 +189,7 @@ export const Statistics: React.FC<StatisticsProps> = ({ trades }) => {
             <StatTooltip title="Average loss on losing trades">
               <Typography>Avg Loss: ${stats.avgLosingTrade.toFixed(2)}</Typography>
             </StatTooltip>
-            <StatTooltip title="Total percentage gain on initial capital">
+            <StatTooltip title="Total percentage gain on initial capital of $5000 for each bot">
               <Typography>Total Gain: {stats.totalGainPercent.toFixed(2)}%</Typography>
             </StatTooltip>
             <StatTooltip title="Annualized percentage gain (linear extrapolation)">

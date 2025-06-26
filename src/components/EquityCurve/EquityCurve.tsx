@@ -8,13 +8,11 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  Brush,
 } from 'recharts';
 import {
   Typography,
   ToggleButtonGroup,
   ToggleButton,
-  Button,
   Box,
   Paper,
 } from '@mui/material';
@@ -35,18 +33,9 @@ interface DataPoint {
 
 export const EquityCurve = ({ trades }: EquityCurveProps) => {
   const [viewMode, setViewMode] = useState<'daily' | 'trade'>('daily');
-  const [brushIndex, setBrushIndex] = useState<{ startIndex?: number; endIndex?: number }>({});
 
   const handleToggle = (_: any, newMode: 'daily' | 'trade' | null) => {
     if (newMode !== null) setViewMode(newMode);
-  };
-
-  const handleBrushChange = (e: any) => {
-    setBrushIndex({ startIndex: e?.startIndex, endIndex: e?.endIndex });
-  };
-
-  const handleResetZoom = () => {
-    setBrushIndex({});
   };
 
   const data: DataPoint[] = useMemo(() => {
@@ -156,39 +145,23 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
         <Typography variant="h6">
           Equity Curve
         </Typography>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <StatTooltip title="Switch between daily and per-trade view">
-            <ToggleButtonGroup
-              value={viewMode}
-              exclusive
-              onChange={handleToggle}
-              size="small"
-            >
-              <ToggleButton value="daily">Daily View</ToggleButton>
-              <ToggleButton value="trade">Per-Trade View</ToggleButton>
-            </ToggleButtonGroup>
-          </StatTooltip>
-
-          <StatTooltip title="Reset the chart zoom to show all data">
-            <Button 
-              onClick={handleResetZoom} 
-              variant="outlined" 
-              size="small"
-              sx={{ minWidth: '100px' }}
-            >
-              Reset Zoom
-            </Button>
-          </StatTooltip>
-        </Box>
+        <StatTooltip title="Switch between daily and per-trade view">
+          <ToggleButtonGroup
+            value={viewMode}
+            exclusive
+            onChange={handleToggle}
+            size="small"
+          >
+            <ToggleButton value="daily">Daily View</ToggleButton>
+            <ToggleButton value="trade">Per-Trade View</ToggleButton>
+          </ToggleButtonGroup>
+        </StatTooltip>
       </Box>
 
-      <ResponsiveContainer width="100%" height={350}>
+      <ResponsiveContainer width="100%" height={400}>
         <LineChart
-          data={data.slice(
-            brushIndex.startIndex ?? 0,
-            (brushIndex.endIndex ?? data.length - 1) + 1
-          )}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          data={data}
+          margin={{ top: 5, right: 30, left: 60, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -197,13 +170,14 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
             tickFormatter={formatXAxis}
             domain={['dataMin', 'dataMax']}
             ticks={tradeTicks}
+            tickCount={viewMode === 'daily' ? 10 : undefined}
           />
           <YAxis 
             tickFormatter={formatTooltipValue}
             label={{ 
               value: 'Equity ($)', 
               angle: -90, 
-              position: 'insideLeft',
+              position: 'outside',
               style: { textAnchor: 'middle' }
             }}
           />
@@ -217,14 +191,6 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
             dot={false}
             isAnimationActive={false}
             strokeWidth={2}
-          />
-          <Brush
-            dataKey={viewMode === 'trade' ? 'tradeIndex' : 'timestamp'}
-            height={30}
-            stroke="#8884d8"
-            travellerWidth={10}
-            tickFormatter={formatXAxis}
-            onChange={handleBrushChange}
           />
         </LineChart>
       </ResponsiveContainer>
