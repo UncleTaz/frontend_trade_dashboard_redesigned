@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paper, Typography, Tooltip } from '@mui/material';
+import { Box, Typography, Tooltip } from '@mui/material';
 
 interface StatTooltipProps {
   title: string;
