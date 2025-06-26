@@ -138,7 +138,7 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
         {/* Virtualized List */}
         <Box sx={{ height: `calc(600px - ${HEADER_HEIGHT}px)` }}>
           <AutoSizer>
-            {({ width, height }) => (
+            {({ width, height }: { width: number; height: number }) => (
               <List
                 height={height}
                 itemCount={trades.length}

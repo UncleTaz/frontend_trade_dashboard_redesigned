@@ -27,24 +27,24 @@ export const api = {
 
     try {
       const response = await axios.get(`${API_BASE_URL}/trades`, { params });
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to fetch trades');
+      return response.data as Trade[];
+    } catch (error: any) {
+      if (error.response) {
+        throw new Error(error.response.data?.message || 'Failed to fetch trades');
       }
-      throw error;
+      throw new Error('Failed to fetch trades');
     }
   },
 
   async getBotLabels(): Promise<string[]> {
     try {
       const response = await axios.get(`${API_BASE_URL}/bots`);
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to fetch bot labels');
+      return response.data as string[];
+    } catch (error: any) {
+      if (error.response) {
+        throw new Error(error.response.data?.message || 'Failed to fetch bot labels');
       }
-      throw error;
+      throw new Error('Failed to fetch bot labels');
     }
   },
 };

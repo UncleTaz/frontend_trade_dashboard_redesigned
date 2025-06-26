@@ -7,6 +7,7 @@ import {
   Select,
   SelectChangeEvent,
   Grid,
+  TextField,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -32,11 +33,13 @@ export const BotSettings = ({
     onBotChange(event.target.value);
   };
 
-  const handleStartDateChange = (date: Date | null) => {
+  const handleStartDateChange = (value: unknown) => {
+    const date = value as Date | null;
     onDateRangeChange([date, dateRange[1]]);
   };
 
-  const handleEndDateChange = (date: Date | null) => {
+  const handleEndDateChange = (value: unknown) => {
+    const date = value as Date | null;
     onDateRangeChange([dateRange[0], date]);
   };
 
@@ -68,9 +71,7 @@ export const BotSettings = ({
               label="Start Date"
               value={dateRange[0]}
               onChange={handleStartDateChange}
-              slotProps={{
-                textField: { fullWidth: true }
-              }}
+              renderInput={(params) => <TextField {...params} fullWidth />}
             />
           </LocalizationProvider>
         </Grid>
@@ -80,9 +81,7 @@ export const BotSettings = ({
               label="End Date"
               value={dateRange[1]}
               onChange={handleEndDateChange}
-              slotProps={{
-                textField: { fullWidth: true }
-              }}
+              renderInput={(params) => <TextField {...params} fullWidth />}
             />
           </LocalizationProvider>
         </Grid>
