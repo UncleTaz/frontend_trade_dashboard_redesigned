@@ -39,7 +39,7 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
             height: ROW_HEIGHT,
           }}
         >
-          <Box sx={{ flex: 1, pl: 2 }}>{trade.botLabel}</Box>
+          <Box sx={{ flex: 2, pl: 2 }}>{trade.botLabel}</Box>
           <Box sx={{ flex: 1 }}>
             <Typography
               sx={{
@@ -54,7 +54,7 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
           <Box sx={{ flex: 1.5 }}>{formatTimestamp(trade.exitTime)}</Box>
           <Box sx={{ flex: 1, textAlign: 'right' }}>${trade.entryPrice.toFixed(2)}</Box>
           <Box sx={{ flex: 1, textAlign: 'right' }}>${trade.exitPrice.toFixed(2)}</Box>
-          <Box sx={{ flex: 1, textAlign: 'right' }}>{trade.quantity}</Box>
+          <Box sx={{ flex: 0.7, textAlign: 'right' }}>{trade.quantity}</Box>
           <Box sx={{ flex: 1, textAlign: 'right', pr: 2 }}>
             <Typography
               sx={{
@@ -89,7 +89,7 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
             zIndex: 1,
           }}
         >
-          <Box sx={{ flex: 1, pl: 2 }}>
+          <Box sx={{ flex: 2, pl: 2 }}>
             <StatTooltip title="Trading bot identifier">
               <Typography>Bot</Typography>
             </StatTooltip>
@@ -119,7 +119,7 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
               <Typography>Exit Price</Typography>
             </StatTooltip>
           </Box>
-          <Box sx={{ flex: 1, textAlign: 'right' }}>
+          <Box sx={{ flex: 0.7, textAlign: 'right' }}>
             <StatTooltip title="Number of contracts traded">
               <Typography>Quantity</Typography>
             </StatTooltip>

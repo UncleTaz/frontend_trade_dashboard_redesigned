@@ -103,10 +103,15 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
     }
   };
 
-  const formatTooltipLabel = (label: number | string) =>
-    typeof label === 'number'
-      ? `Trade #${label}`
-      : label.replace('T', ' ').slice(0, 19);
+  const formatTooltipLabel = (label: number | string) => {
+    if (viewMode === 'daily') {
+      // In daily view, label is a timestamp, convert to date
+      return new Date(label as number).toISOString().slice(0, 10); // YYYY-MM-DD
+    } else {
+      // In trade view, label is trade number
+      return `Trade #${label}`;
+    }
+  };
 
   const formatTooltipValue = (value: number) =>
     `$${Math.round(value)}`;

@@ -152,8 +152,11 @@ export const Statistics: React.FC<StatisticsProps> = ({ trades }) => {
 
   return (
     <Box>
-      <Typography variant="h6" gutterBottom sx={{ mb: 3, color: 'primary.main' }}>
+      <Typography variant="h6" gutterBottom sx={{ mb: 1, color: 'primary.main' }}>
         Statistics
+      </Typography>
+      <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary', fontStyle: 'italic' }}>
+        Hover over each statistic for a brief explanation
       </Typography>
       <Grid container spacing={2} sx={{ mt: 0 }}>
         <Grid item xs={12} md={4}>
