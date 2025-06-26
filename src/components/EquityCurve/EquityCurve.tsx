@@ -135,7 +135,7 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
             {formatTooltipLabel(label)}
           </Typography>
           <Typography color="primary">
-            Total Equity: {formatTooltipValue(payload[0].value)}
+            Cumulative Net Profit: {formatTooltipValue(payload[0].value)}
           </Typography>
           {viewMode === 'daily' && payload[0].payload.dailyPnL && (
             <Typography 
@@ -154,7 +154,7 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h6">
-          Equity Curve
+          Cumulative Net Profit
         </Typography>
         <StatTooltip title="Switch between daily and per-trade view">
           <ToggleButtonGroup
@@ -172,7 +172,7 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={data}
-          margin={{ top: 5, right: 30, left: 90, bottom: 5 }}
+          margin={{ top: 5, right: 30, left: 60, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -184,12 +184,6 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
           />
           <YAxis 
             tickFormatter={formatTooltipValue}
-            label={{ 
-              value: 'Equity ($)', 
-              angle: -90, 
-              position: 'outside',
-              style: { textAnchor: 'middle' }
-            }}
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
@@ -197,7 +191,7 @@ export const EquityCurve = ({ trades }: EquityCurveProps) => {
             type="monotone"
             dataKey="equity"
             stroke="#8884d8"
-            name="Equity"
+            name="Cumulative Net Profit"
             dot={false}
             isAnimationActive={false}
             strokeWidth={2}
