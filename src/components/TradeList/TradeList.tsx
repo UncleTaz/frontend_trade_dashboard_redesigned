@@ -109,23 +109,23 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
               <Typography>Exit Time</Typography>
             </StatTooltip>
           </Box>
-          <Box sx={{ flex: 1, textAlign: 'right' }}>
+          <Box sx={{ flex: 1 }}>
             <StatTooltip title="Price at which the trade was entered">
               <Typography>Entry Price</Typography>
             </StatTooltip>
           </Box>
-          <Box sx={{ flex: 1, textAlign: 'right' }}>
+          <Box sx={{ flex: 1 }}>
             <StatTooltip title="Price at which the trade was exited">
               <Typography>Exit Price</Typography>
             </StatTooltip>
           </Box>
-          <Box sx={{ flex: 0.7, textAlign: 'right' }}>
+          <Box sx={{ flex: 0.7 }}>
             <StatTooltip title="Number of contracts traded">
               <Typography>Quantity</Typography>
             </StatTooltip>
           </Box>
-          <Box sx={{ flex: 1, textAlign: 'right', pr: 2 }}>
-            <StatTooltip title="Profit/Loss from the trade">
+          <Box sx={{ flex: 1, pr: 2 }}>
+            <StatTooltip title="Profit/Loss from the trade net of commissions">
               <Typography>P/L</Typography>
             </StatTooltip>
           </Box>

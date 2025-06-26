@@ -168,7 +168,7 @@ export const Statistics: React.FC<StatisticsProps> = ({ trades }) => {
             <StatTooltip title="Percentage of trades that resulted in profit">
               <Typography>Win Rate: {stats.winRate.toFixed(2)}%</Typography>
             </StatTooltip>
-            <StatTooltip title="Ratio of gross profits to gross losses. Values above 1 indicate overall profitability">
+            <StatTooltip title="Ratio of net profits to net losses. Values above 1 indicate overall profitability">
               <Typography>Profit Factor: {stats.profitFactor.toFixed(2)}</Typography>
             </StatTooltip>
             <StatTooltip title="Risk-adjusted return metric focusing on downside volatility">
@@ -193,7 +193,7 @@ export const Statistics: React.FC<StatisticsProps> = ({ trades }) => {
               <Typography>Total Gain: {stats.totalGainPercent.toFixed(2)}%</Typography>
             </StatTooltip>
             <StatTooltip title="Annualized percentage gain (linear extrapolation)">
-              <Typography>Annual Gain: {stats.annualizedGainPercent.toFixed(2)}%</Typography>
+              <Typography>Annualized Gain: {stats.annualizedGainPercent.toFixed(2)}%</Typography>
             </StatTooltip>
           </Paper>
         </Grid>
