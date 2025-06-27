@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   Typography,
   Paper,
@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { FixedSizeList as List, ListOnScrollProps } from 'react-window';
+import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { Trade } from '../Dashboard/Dashboard';
 import { StatTooltip } from '../StatTooltip/StatTooltip';
@@ -31,9 +31,6 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
   
   const ROW_HEIGHT = 53; // Material-UI default row height
   const HEADER_HEIGHT = 56; // Material-UI default header height
-
-  // Header reference for scroll synchronization
-  const headerRef = useRef<HTMLDivElement>(null);
 
   // Calculate optimal column widths for mobile
   const getColumnWidths = () => {
@@ -68,13 +65,6 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
   };
 
   const columnWidths = getColumnWidths();
-
-  // Scroll synchronization handler
-  const handleScroll = (props: ListOnScrollProps) => {
-    if (headerRef.current && 'scrollLeft' in props && typeof props.scrollLeft === 'number') {
-      headerRef.current.scrollLeft = props.scrollLeft;
-    }
-  };
 
   const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
     const trade = trades[index];
@@ -206,10 +196,9 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
       </Typography>
       <Paper sx={{ height: 600, width: '100%' }}>
         {useMobileLayout ? (
-          // Mobile: Wrap everything in horizontal scroll container
+          // Mobile: Single horizontal scroll container
           <Box sx={{ 
-            overflowX: 'auto', 
-            height: '100%',
+            overflowX: 'auto',
             WebkitOverflowScrolling: 'touch',
             '&::-webkit-scrollbar': {
               height: '8px',
@@ -222,9 +211,9 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
               borderRadius: '4px',
             },
           }}>
+            <Box sx={{ minWidth: 'max-content' }}>
             {/* Header */}
             <Box
-              ref={headerRef}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -280,7 +269,9 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
             </Box>
 
             {/* Virtualized List */}
-            <Box sx={{ height: `calc(600px - ${HEADER_HEIGHT}px)` }}>
+            <Box sx={{ 
+              height: `calc(600px - ${HEADER_HEIGHT}px)`
+            }}>
               <AutoSizer>
                 {({ width, height }: { width: number; height: number }) => (
                   <List
@@ -288,12 +279,12 @@ export const TradeList: React.FC<TradeListProps> = ({ trades }) => {
                     itemCount={trades.length}
                     itemSize={ROW_HEIGHT}
                     width={width}
-                    onScroll={handleScroll}
                   >
                     {Row}
                   </List>
                 )}
               </AutoSizer>
+            </Box>
             </Box>
           </Box>
         ) : (
