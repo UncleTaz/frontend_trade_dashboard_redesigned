@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Container, Paper, Typography, Alert, IconButton, Collapse, CircularProgress } from '@mui/material';
+import { Box, Container, Paper, Typography, Alert, CircularProgress } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { usePolling } from '../../hooks/usePolling';
 import { TradeFilters } from '../../services/api';
 import { TradeList } from '../TradeList/TradeList';
@@ -9,8 +8,8 @@ import { EquityCurve } from '../EquityCurve/EquityCurve';
 import { Statistics } from '../Statistics/Statistics';
 import { BotSettings } from '../BotSettings/BotSettings';
 
-const AboutContent = React.lazy(() => import('../AboutContent/AboutContent').then(module => ({
-  default: module.AboutContent
+const InformationSelector = React.lazy(() => import('../InformationSelector/InformationSelector').then(module => ({
+  default: module.InformationSelector
 })));
 
 export interface Trade {
@@ -28,7 +27,6 @@ export interface Trade {
 export const Dashboard = () => {
   const [selectedBot, setSelectedBot] = useState<string>('');
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
-  const [isAboutVisible, setIsAboutVisible] = useState(false);
 
   const handleClearFilters = () => {
     setSelectedBot('');
@@ -54,34 +52,13 @@ export const Dashboard = () => {
           @3_lines_smooth's Live Trade Bot Testing Dashboard
         </Typography>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
-          <Typography variant="subtitle1" component="span" sx={{ mr: 1 }}>
-            About this Dashboard
-          </Typography>
-          <IconButton
-            onClick={() => setIsAboutVisible(!isAboutVisible)}
-            aria-expanded={isAboutVisible}
-            aria-label="show more"
-            size="small"
-          >
-            <ExpandMoreIcon 
-              sx={{ 
-                transform: isAboutVisible ? 'rotate(180deg)' : 'rotate(0deg)',
-                transition: 'transform 0.3s'
-              }} 
-            />
-          </IconButton>
-        </Box>
-
-        <Collapse in={isAboutVisible} timeout="auto" unmountOnExit>
-          <React.Suspense fallback={
-            <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
-              <CircularProgress />
-            </Box>
-          }>
-            <AboutContent />
-          </React.Suspense>
-        </Collapse>
+        <React.Suspense fallback={
+          <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+            <CircularProgress />
+          </Box>
+        }>
+          <InformationSelector />
+        </React.Suspense>
 
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
