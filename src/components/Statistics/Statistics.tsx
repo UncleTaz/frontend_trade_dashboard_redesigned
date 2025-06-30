@@ -200,7 +200,7 @@ export const Statistics: React.FC<StatisticsProps> = ({ trades, selectedBot }) =
       });
     }
 
-    // Calculate pooled/overall TWR and linear annualized
+    // Calculate pooled/overall TWR and linear annualized // Improved from capital-aware only
     const allBots = new Set(trades.map(t => t.botLabel));
     const pooledStartingEquity = Array.from(allBots).reduce((sum, botLabel) => {
       return sum + calculateStartingEquity(botLabel, filterStartDate);
