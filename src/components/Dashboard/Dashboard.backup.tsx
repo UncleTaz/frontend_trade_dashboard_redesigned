@@ -87,7 +87,7 @@ export const Dashboard = () => {
 
           <Grid item xs={12}>
             <Paper sx={{ p: 2 }}>
-              <Statistics trades={trades} selectedBot={selectedBot} />
+              <Statistics trades={trades} />
             </Paper>
           </Grid>
 
